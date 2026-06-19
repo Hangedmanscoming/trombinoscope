@@ -3,129 +3,216 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Photobook — Médiateurs & Arbitres</title>
+  <title>Médiateurs & Arbitres — CMAP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f9f8f6;
-      --surface: #ffffff;
-      --border: rgba(0,0,0,0.08);
-      --border-strong: rgba(0,0,0,0.15);
-      --text: #1a1a1a;
-      --text-muted: #6b6b6b;
-      --text-faint: #9a9a9a;
-      --med-bg: #EEEDFE;
-      --med-text: #3C3489;
-      --arb-bg: #E1F5EE;
-      --arb-text: #085041;
-      --accent: #534AB7;
-      --radius: 12px;
-      --radius-sm: 8px;
-      --radius-pill: 999px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #111110;
-        --surface: #1c1c1b;
-        --border: rgba(255,255,255,0.08);
-        --border-strong: rgba(255,255,255,0.15);
-        --text: #f0ede8;
-        --text-muted: #a0a09a;
-        --text-faint: #666660;
-        --med-bg: #26215C;
-        --med-text: #CECBF6;
-        --arb-bg: #04342C;
-        --arb-text: #9FE1CB;
-        --accent: #AFA9EC;
-      }
+      --navy: #0B1F3A;
+      --navy-mid: #1a3558;
+      --gold: #C8A96E;
+      --gold-light: #e8d5a8;
+      --cream: #F7F5F0;
+      --white: #ffffff;
+      --text: #0B1F3A;
+      --text-muted: #5a6a7e;
+      --text-faint: #9aa5b1;
+      --border: rgba(11,31,58,0.1);
+      --border-strong: rgba(11,31,58,0.2);
+      --med-bg: #EEF2F8;
+      --med-text: #1a3558;
+      --arb-bg: #FDF6EC;
+      --arb-text: #8B6914;
+      --radius: 4px;
+      --radius-sm: 3px;
     }
 
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--bg);
+      background: var(--cream);
       color: var(--text);
       min-height: 100vh;
     }
 
+    /* HEADER */
     header {
-      background: var(--surface);
-      border-bottom: 0.5px solid var(--border);
-      padding: 1.25rem 2rem;
+      background: var(--navy);
+      padding: 0 2.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
       flex-wrap: wrap;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      height: 64px;
     }
 
-    .header-left h1 {
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
-    .header-left p {
+    .logo-badge {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid var(--gold);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-badge span {
+      font-family: 'Playfair Display', serif;
       font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 2px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.5px;
     }
 
-    .header-right {
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-text strong {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .logo-text small {
+      font-size: 10px;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    .header-actions {
       display: flex;
       gap: 8px;
       align-items: center;
-      flex-wrap: wrap;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 7px 14px;
-      font-size: 13px;
+      padding: 7px 16px;
+      font-size: 12px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       border-radius: var(--radius-sm);
-      border: 0.5px solid var(--border-strong);
-      background: var(--surface);
-      color: var(--text);
       cursor: pointer;
-      transition: background 0.12s;
+      transition: all 0.15s;
       text-decoration: none;
     }
 
-    .btn:hover { background: var(--bg); }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border-color: transparent;
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.25);
+      background: transparent;
+      color: rgba(255,255,255,0.85);
     }
 
-    .btn-primary:hover { opacity: 0.9; background: var(--accent); }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: transparent;
+    }
+
+    .btn-gold {
+      border: 1px solid var(--gold);
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .btn-gold:hover { opacity: 0.88; }
 
     .btn input[type="file"] { display: none; }
 
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
+    /* HERO BAND */
+    .hero-band {
+      background: var(--navy-mid);
+      padding: 2rem 2.5rem;
+      border-bottom: 2px solid var(--gold);
     }
 
+    .hero-band h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+
+    .hero-band p {
+      font-size: 13px;
+      color: var(--gold-light);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
+    }
+
+    /* UPLOAD BANNER */
+    .upload-banner {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--white);
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.75rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      color: var(--text-muted);
+    }
+
+    .upload-banner:hover {
+      border-color: var(--gold);
+      background: #fffdf8;
+    }
+
+    .upload-banner i {
+      font-size: 22px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .upload-banner input { display: none; }
+
+    .upload-banner strong {
+      display: block;
+      font-weight: 500;
+      color: var(--text);
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .upload-banner span { font-size: 12px; }
+
+    /* TOOLBAR */
     .toolbar {
       display: flex;
       gap: 10px;
       align-items: center;
       flex-wrap: wrap;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
     .search-wrap {
@@ -146,89 +233,114 @@
 
     .search-wrap input {
       width: 100%;
-      height: 38px;
-      padding: 0 12px 0 36px;
+      height: 40px;
+      padding: 0 12px 0 38px;
       font-size: 14px;
       font-family: 'Inter', sans-serif;
-      border: 0.5px solid var(--border-strong);
-      border-radius: var(--radius-sm);
-      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      background: var(--white);
       color: var(--text);
       outline: none;
-      transition: border-color 0.12s;
+      transition: border-color 0.15s;
     }
 
-    .search-wrap input:focus { border-color: var(--accent); }
+    .search-wrap input:focus { border-color: var(--navy); }
     .search-wrap input::placeholder { color: var(--text-faint); }
 
-    .filter-btns {
+    .filter-group {
       display: flex;
-      gap: 4px;
-      background: var(--surface);
-      border: 0.5px solid var(--border-strong);
-      border-radius: var(--radius-sm);
-      padding: 3px;
+      gap: 0;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--white);
     }
 
     .filter-btn {
-      padding: 5px 12px;
-      font-size: 13px;
+      padding: 0 16px;
+      height: 40px;
+      font-size: 12px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       border: none;
-      border-radius: 6px;
+      border-right: 1px solid var(--border);
       background: transparent;
       color: var(--text-muted);
       cursor: pointer;
       transition: all 0.12s;
     }
 
-    .filter-btn.active {
-      background: var(--accent);
-      color: #fff;
-    }
+    .filter-btn:last-child { border-right: none; }
+    .filter-btn:hover { background: var(--cream); color: var(--navy); }
+    .filter-btn.active { background: var(--navy); color: var(--white); }
 
+    /* STATS BAR */
     .stats-bar {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
       margin-bottom: 1.25rem;
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text-muted);
+      letter-spacing: 0.03em;
     }
 
-    .stat-pill {
+    .divider { color: var(--border-strong); }
+
+    .pill {
       display: inline-flex;
       align-items: center;
       gap: 5px;
       padding: 3px 10px;
-      border-radius: var(--radius-pill);
-      font-size: 12px;
+      border-radius: 2px;
+      font-size: 11px;
       font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
-    .stat-pill.med { background: var(--med-bg); color: var(--med-text); }
-    .stat-pill.arb { background: var(--arb-bg); color: var(--arb-text); }
+    .pill.med { background: var(--med-bg); color: var(--med-text); }
+    .pill.arb { background: var(--arb-bg); color: var(--arb-text); }
 
+    /* GRID */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 12px;
     }
 
     .card {
-      background: var(--surface);
-      border: 0.5px solid var(--border);
+      background: var(--white);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.25rem 1rem;
+      padding: 1.5rem 1rem 1.25rem;
       text-align: center;
-      transition: box-shadow 0.15s, border-color 0.15s;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      position: relative;
     }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      border-radius: var(--radius) var(--radius) 0 0;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .card.med::before { background: var(--navy); }
+    .card.arb::before { background: var(--gold); }
 
     .card:hover {
       border-color: var(--border-strong);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 16px rgba(11,31,58,0.08);
     }
+
+    .card:hover::before { opacity: 1; }
 
     .avatar {
       width: 72px;
@@ -238,6 +350,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      font-family: 'Playfair Display', serif;
       font-size: 22px;
       font-weight: 600;
       overflow: hidden;
@@ -251,78 +364,76 @@
       border-radius: 50%;
     }
 
-    .avatar.med { background: var(--med-bg); color: var(--med-text); }
-    .avatar.arb { background: var(--arb-bg); color: var(--arb-text); }
+    .avatar.med {
+      background: var(--med-bg);
+      color: var(--navy);
+      border: 2px solid rgba(11,31,58,0.12);
+    }
+
+    .avatar.arb {
+      background: var(--arb-bg);
+      color: var(--arb-text);
+      border: 2px solid rgba(200,169,110,0.25);
+    }
 
     .card-name {
+      font-family: 'Playfair Display', serif;
       font-size: 14px;
       font-weight: 600;
-      line-height: 1.3;
-      margin-bottom: 6px;
-      color: var(--text);
+      line-height: 1.35;
+      margin-bottom: 7px;
+      color: var(--navy);
     }
 
     .role-badge {
       display: inline-block;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 500;
-      padding: 2px 9px;
-      border-radius: var(--radius-pill);
-      margin-bottom: 7px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-bottom: 8px;
     }
 
     .role-badge.med { background: var(--med-bg); color: var(--med-text); }
     .role-badge.arb { background: var(--arb-bg); color: var(--arb-text); }
 
     .card-city {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-faint);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 3px;
+      letter-spacing: 0.03em;
     }
 
+    /* EMPTY STATE */
     .empty-state {
       grid-column: 1 / -1;
       text-align: center;
       padding: 4rem 2rem;
       color: var(--text-muted);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
     }
 
     .empty-state i { font-size: 32px; display: block; margin-bottom: 12px; color: var(--text-faint); }
     .empty-state p { font-size: 14px; }
 
-    .upload-banner {
-      border: 1px dashed var(--border-strong);
-      border-radius: var(--radius);
-      padding: 1rem 1.5rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      transition: background 0.12s;
-      color: var(--text-muted);
-      font-size: 13px;
-    }
-
-    .upload-banner:hover { background: var(--surface); }
-    .upload-banner i { font-size: 20px; flex-shrink: 0; }
-    .upload-banner input { display: none; }
-
-    .upload-banner strong { display: block; font-weight: 500; color: var(--text); font-size: 14px; margin-bottom: 2px; }
-
+    /* TOAST */
     .toast {
       position: fixed;
       bottom: 1.5rem;
       right: 1.5rem;
-      background: var(--text);
-      color: var(--bg);
+      background: var(--navy);
+      color: var(--white);
+      border-left: 3px solid var(--gold);
       padding: 10px 16px;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius);
       font-size: 13px;
-      font-weight: 500;
       opacity: 0;
       transform: translateY(8px);
       transition: opacity 0.2s, transform 0.2s;
@@ -332,44 +443,71 @@
 
     .toast.show { opacity: 1; transform: translateY(0); }
 
+    /* FOOTER */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 1.25rem 2rem;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-top: 2px solid var(--gold);
+    }
+
+    footer strong { color: var(--gold); }
+
+    /* PRINT */
     @media print {
-      header, .toolbar, .upload-banner, .stats-bar { display: none !important; }
+      header, .hero-band .hero-band-actions, .upload-banner, .toolbar, .stats-bar, footer { display: none !important; }
+      .hero-band { padding: 1rem 1.5rem; }
       body { background: #fff; }
       .grid { grid-template-columns: repeat(5, 1fr); gap: 8px; }
-      .card { border: 0.5px solid #ddd; break-inside: avoid; }
+      .card { border: 1px solid #ddd; break-inside: avoid; padding: 1rem 0.75rem; }
+      .card::before { display: none; }
     }
 
     @media (max-width: 600px) {
-      header { padding: 1rem; }
+      header { height: auto; padding: 1rem; }
+      .hero-band { padding: 1.25rem 1rem; }
       main { padding: 1rem; }
-      .grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+      .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="header-left">
-    <h1>Médiateurs & Arbitres</h1>
-    <p id="header-subtitle">Chargement…</p>
+  <div class="logo-area">
+    <div class="logo-badge"><span>CM</span></div>
+    <div class="logo-text">
+      <strong>Médiateurs & Arbitres</strong>
+      <small>Annuaire interne</small>
+    </div>
   </div>
-  <div class="header-right">
-    <label class="btn" tabindex="0">
+  <div class="header-actions">
+    <label class="btn btn-outline" tabindex="0">
       <i class="ti ti-upload" aria-hidden="true"></i> Importer CSV
       <input type="file" id="csvInputHeader" accept=".csv" onchange="loadCSV(event)">
     </label>
-    <button class="btn btn-primary" onclick="window.print()">
+    <button class="btn btn-gold" onclick="window.print()">
       <i class="ti ti-printer" aria-hidden="true"></i> Imprimer
     </button>
   </div>
 </header>
 
+<div class="hero-band">
+  <h1>Notre réseau de médiateurs et arbitres</h1>
+  <p id="hero-subtitle">Chargement de l'annuaire…</p>
+</div>
+
 <main>
+
   <label class="upload-banner" for="csvInputBanner">
     <i class="ti ti-file-spreadsheet" aria-hidden="true"></i>
     <div>
-      <strong>Mettre à jour depuis Eudonet</strong>
-      Glissez votre export CSV ici, ou cliquez pour sélectionner le fichier
+      <strong>Mettre à jour l'annuaire depuis Eudonet</strong>
+      <span>Importez votre export CSV — le séparateur et les colonnes sont détectés automatiquement</span>
     </div>
     <input type="file" id="csvInputBanner" accept=".csv" onchange="loadCSV(event)">
   </label>
@@ -379,7 +517,7 @@
       <i class="ti ti-search" aria-hidden="true"></i>
       <input type="text" id="search" placeholder="Rechercher par nom ou ville…" oninput="render()" aria-label="Rechercher">
     </div>
-    <div class="filter-btns" role="group" aria-label="Filtrer par rôle">
+    <div class="filter-group" role="group" aria-label="Filtrer par rôle">
       <button class="filter-btn active" onclick="setFilter('tous', event)">Tous</button>
       <button class="filter-btn" onclick="setFilter('Médiateur', event)">Médiateurs</button>
       <button class="filter-btn" onclick="setFilter('Arbitre', event)">Arbitres</button>
@@ -387,9 +525,13 @@
   </div>
 
   <div class="stats-bar" id="stats-bar" aria-live="polite"></div>
-
   <div class="grid" id="grid" role="list"></div>
+
 </main>
+
+<footer>
+  <strong>Annuaire interne</strong> — Document confidentiel, réservé à usage interne
+</footer>
 
 <div class="toast" id="toast"></div>
 
@@ -425,18 +567,15 @@
   let filter = 'tous';
 
   function initials(p) {
-    return ((p.prenom || '?')[0] + (p.nom || '?')[0]).toUpperCase();
+    return ((p.prenom||'?')[0] + (p.nom||'?')[0]).toUpperCase();
   }
 
   function avatarHTML(p) {
     const cls = p.role === 'Médiateur' ? 'med' : 'arb';
     if (p.photo && p.photo.trim()) {
-      const safe = p.photo.trim().replace(/"/g, '&quot;');
-      const fb = initials(p).replace(/'/g, "\\'");
-      return `<div class="avatar ${cls}">
-        <img src="${safe}" alt="${p.prenom} ${p.nom}"
-          onerror="this.parentElement.innerHTML='${fb}'; this.parentElement.style.fontSize='22px';">
-      </div>`;
+      const safe = p.photo.trim().replace(/"/g,'&quot;');
+      const fb = initials(p).replace(/'/g,"\\'");
+      return `<div class="avatar ${cls}"><img src="${safe}" alt="${p.prenom} ${p.nom}" onerror="this.parentElement.innerHTML='${fb}';"></div>`;
     }
     return `<div class="avatar ${cls}">${initials(p)}</div>`;
   }
@@ -452,20 +591,21 @@
     const q = document.getElementById('search').value.toLowerCase();
     const filtered = data.filter(p => {
       const matchRole = filter === 'tous' || p.role === filter;
-      const matchQ = !q || (p.prenom + ' ' + p.nom).toLowerCase().includes(q) || (p.ville || '').toLowerCase().includes(q);
+      const matchQ = !q || (p.prenom+' '+p.nom).toLowerCase().includes(q) || (p.ville||'').toLowerCase().includes(q);
       return matchRole && matchQ;
     });
 
     const med = data.filter(p => p.role === 'Médiateur').length;
     const arb = data.filter(p => p.role === 'Arbitre').length;
 
-    document.getElementById('header-subtitle').textContent =
+    document.getElementById('hero-subtitle').textContent =
       med + ' médiateurs · ' + arb + ' arbitres';
 
     document.getElementById('stats-bar').innerHTML =
-      `<span>${filtered.length} personne${filtered.length > 1 ? 's' : ''} affichée${filtered.length > 1 ? 's' : ''}</span>
-       <span class="stat-pill med">${med} médiateurs</span>
-       <span class="stat-pill arb">${arb} arbitres</span>`;
+      `<span>${filtered.length} personne${filtered.length>1?'s':''} affichée${filtered.length>1?'s':''}</span>
+       <span class="divider">·</span>
+       <span class="pill med">${med} médiateurs</span>
+       <span class="pill arb">${arb} arbitres</span>`;
 
     const grid = document.getElementById('grid');
     if (!filtered.length) {
@@ -478,17 +618,17 @@
 
     grid.innerHTML = filtered.map(p => {
       const cls = p.role === 'Médiateur' ? 'med' : 'arb';
-      return `<div class="card" role="listitem">
+      return `<div class="card ${cls}" role="listitem">
         ${avatarHTML(p)}
         <div class="card-name">${p.prenom} ${p.nom}</div>
         <span class="role-badge ${cls}">${p.role}</span>
-        ${p.ville ? `<div class="card-city"><i class="ti ti-map-pin" aria-hidden="true" style="font-size:12px;"></i>${p.ville}</div>` : ''}
+        ${p.ville ? `<div class="card-city"><i class="ti ti-map-pin" aria-hidden="true" style="font-size:11px;"></i>${p.ville}</div>` : ''}
       </div>`;
     }).join('');
   }
 
   function normalize(h) {
-    return h.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().replace(/^"|"$/g, '');
+    return h.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().replace(/^"|"$/g,'');
   }
 
   function findCol(headers, candidates) {
@@ -505,21 +645,19 @@
     const reader = new FileReader();
     reader.onload = function(ev) {
       const raw = ev.target.result;
-      const sep = raw.indexOf(';') !== -1 && raw.indexOf(';') < (raw.indexOf(',') === -1 ? 9999 : raw.indexOf(',')) ? ';' : ',';
+      const sep = (raw.split(';').length > raw.split(',').length) ? ';' : ',';
       const lines = raw.trim().split(/\r?\n/);
       if (lines.length < 2) return;
-
       const headers = lines[0].split(sep);
-      const iPrenom = findCol(headers, ['prenom','prenom','firstname','first name','first_name','givenname']);
+      const iPrenom = findCol(headers, ['prenom','firstname','first name','first_name','givenname']);
       const iNom    = findCol(headers, ['nom','name','lastname','last name','last_name','familyname','surname']);
-      const iRole   = findCol(headers, ['role','rôle','type','fonction','categorie','categorie','profil']);
-      const iVille  = findCol(headers, ['ville','city','localite','localite','commune']);
+      const iRole   = findCol(headers, ['role','type','fonction','categorie','profil']);
+      const iVille  = findCol(headers, ['ville','city','localite','commune']);
       const iPhoto  = findCol(headers, ['photo','image','photo_url','image_url','url_photo','avatar','picture']);
-
       const parsed = [];
       for (let i = 1; i < lines.length; i++) {
         if (!lines[i].trim()) continue;
-        const vals = lines[i].split(sep).map(v => v.replace(/^"|"$/g, '').trim());
+        const vals = lines[i].split(sep).map(v => v.replace(/^"|"$/g,'').trim());
         const p = {
           prenom: iPrenom !== -1 ? vals[iPrenom] : '',
           nom:    iNom    !== -1 ? vals[iNom]    : '',
@@ -529,7 +667,6 @@
         };
         if (p.nom || p.prenom) parsed.push(p);
       }
-
       if (parsed.length) {
         data = parsed;
         render();
@@ -546,7 +683,7 @@
     const t = document.getElementById('toast');
     t.textContent = msg;
     t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 3000);
+    setTimeout(() => t.classList.remove('show'), 3500);
   }
 
   render();
