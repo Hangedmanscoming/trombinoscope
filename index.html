@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photobook — Médiateurs & Arbitres</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f9f8f6;
+      --surface: #ffffff;
+      --border: rgba(0,0,0,0.08);
+      --border-strong: rgba(0,0,0,0.15);
+      --text: #1a1a1a;
+      --text-muted: #6b6b6b;
+      --text-faint: #9a9a9a;
+      --med-bg: #EEEDFE;
+      --med-text: #3C3489;
+      --arb-bg: #E1F5EE;
+      --arb-text: #085041;
+      --accent: #534AB7;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-pill: 999px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111110;
+        --surface: #1c1c1b;
+        --border: rgba(255,255,255,0.08);
+        --border-strong: rgba(255,255,255,0.15);
+        --text: #f0ede8;
+        --text-muted: #a0a09a;
+        --text-faint: #666660;
+        --med-bg: #26215C;
+        --med-text: #CECBF6;
+        --arb-bg: #04342C;
+        --arb-text: #9FE1CB;
+        --accent: #AFA9EC;
+      }
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 0.5px solid var(--border);
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-left h1 {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .header-left p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      border: 0.5px solid var(--border-strong);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.12s;
+      text-decoration: none;
+    }
+
+    .btn:hover { background: var(--bg); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .btn-primary:hover { opacity: 0.9; background: var(--accent); }
+
+    .btn input[type="file"] { display: none; }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .search-wrap i {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-faint);
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      height: 38px;
+      padding: 0 12px 0 36px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      border: 0.5px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.12s;
+    }
+
+    .search-wrap input:focus { border-color: var(--accent); }
+    .search-wrap input::placeholder { color: var(--text-faint); }
+
+    .filter-btns {
+      display: flex;
+      gap: 4px;
+      background: var(--surface);
+      border: 0.5px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+    }
+
+    .filter-btn {
+      padding: 5px 12px;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .stats-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 1.25rem;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .stat-pill.med { background: var(--med-bg); color: var(--med-text); }
+    .stat-pill.arb { background: var(--arb-bg); color: var(--arb-text); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+
+    .card:hover {
+      border-color: var(--border-strong);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 600;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .avatar.med { background: var(--med-bg); color: var(--med-text); }
+    .avatar.arb { background: var(--arb-bg); color: var(--arb-text); }
+
+    .card-name {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .role-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 9px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 7px;
+    }
+
+    .role-badge.med { background: var(--med-bg); color: var(--med-text); }
+    .role-badge.arb { background: var(--arb-bg); color: var(--arb-text); }
+
+    .card-city {
+      font-size: 12px;
+      color: var(--text-faint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
+    }
+
+    .empty-state i { font-size: 32px; display: block; margin-bottom: 12px; color: var(--text-faint); }
+    .empty-state p { font-size: 14px; }
+
+    .upload-banner {
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: background 0.12s;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .upload-banner:hover { background: var(--surface); }
+    .upload-banner i { font-size: 20px; flex-shrink: 0; }
+    .upload-banner input { display: none; }
+
+    .upload-banner strong { display: block; font-weight: 500; color: var(--text); font-size: 14px; margin-bottom: 2px; }
+
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: var(--text);
+      color: var(--bg);
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media print {
+      header, .toolbar, .upload-banner, .stats-bar { display: none !important; }
+      body { background: #fff; }
+      .grid { grid-template-columns: repeat(5, 1fr); gap: 8px; }
+      .card { border: 0.5px solid #ddd; break-inside: avoid; }
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 1rem; }
+      main { padding: 1rem; }
+      .grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>Médiateurs & Arbitres</h1>
+    <p id="header-subtitle">Chargement…</p>
+  </div>
+  <div class="header-right">
+    <label class="btn" tabindex="0">
+      <i class="ti ti-upload" aria-hidden="true"></i> Importer CSV
+      <input type="file" id="csvInputHeader" accept=".csv" onchange="loadCSV(event)">
+    </label>
+    <button class="btn btn-primary" onclick="window.print()">
+      <i class="ti ti-printer" aria-hidden="true"></i> Imprimer
+    </button>
+  </div>
+</header>
+
+<main>
+  <label class="upload-banner" for="csvInputBanner">
+    <i class="ti ti-file-spreadsheet" aria-hidden="true"></i>
+    <div>
+      <strong>Mettre à jour depuis Eudonet</strong>
+      Glissez votre export CSV ici, ou cliquez pour sélectionner le fichier
+    </div>
+    <input type="file" id="csvInputBanner" accept=".csv" onchange="loadCSV(event)">
+  </label>
+
+  <div class="toolbar">
+    <div class="search-wrap">
+      <i class="ti ti-search" aria-hidden="true"></i>
+      <input type="text" id="search" placeholder="Rechercher par nom ou ville…" oninput="render()" aria-label="Rechercher">
+    </div>
+    <div class="filter-btns" role="group" aria-label="Filtrer par rôle">
+      <button class="filter-btn active" onclick="setFilter('tous', event)">Tous</button>
+      <button class="filter-btn" onclick="setFilter('Médiateur', event)">Médiateurs</button>
+      <button class="filter-btn" onclick="setFilter('Arbitre', event)">Arbitres</button>
+    </div>
+  </div>
+
+  <div class="stats-bar" id="stats-bar" aria-live="polite"></div>
+
+  <div class="grid" id="grid" role="list"></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const SAMPLE = [
+    {prenom:"Sophie",nom:"Martin",role:"Médiateur",ville:"Paris",photo:"https://i.pravatar.cc/150?img=47"},
+    {prenom:"Jean-Pierre",nom:"Dubois",role:"Médiateur",ville:"Lyon",photo:"https://i.pravatar.cc/150?img=12"},
+    {prenom:"Isabelle",nom:"Bernard",role:"Arbitre",ville:"Marseille",photo:"https://i.pravatar.cc/150?img=49"},
+    {prenom:"Marc",nom:"Lefebvre",role:"Médiateur",ville:"Bordeaux",photo:""},
+    {prenom:"Nathalie",nom:"Moreau",role:"Arbitre",ville:"Toulouse",photo:"https://i.pravatar.cc/150?img=44"},
+    {prenom:"François",nom:"Simon",role:"Médiateur",ville:"Nantes",photo:""},
+    {prenom:"Claire",nom:"Laurent",role:"Arbitre",ville:"Strasbourg",photo:"https://i.pravatar.cc/150?img=45"},
+    {prenom:"Philippe",nom:"Rousseau",role:"Médiateur",ville:"Lille",photo:""},
+    {prenom:"Marie",nom:"Fontaine",role:"Médiateur",ville:"Nice",photo:"https://i.pravatar.cc/150?img=48"},
+    {prenom:"Thierry",nom:"Gauthier",role:"Arbitre",ville:"Rennes",photo:"https://i.pravatar.cc/150?img=15"},
+    {prenom:"Céline",nom:"Dupont",role:"Médiateur",ville:"Montpellier",photo:""},
+    {prenom:"Éric",nom:"Mercier",role:"Arbitre",ville:"Grenoble",photo:"https://i.pravatar.cc/150?img=11"},
+    {prenom:"Sandrine",nom:"Girard",role:"Médiateur",ville:"Paris",photo:"https://i.pravatar.cc/150?img=46"},
+    {prenom:"David",nom:"Bonnet",role:"Arbitre",ville:"Lyon",photo:""},
+    {prenom:"Valérie",nom:"Lemaire",role:"Médiateur",ville:"Bordeaux",photo:"https://i.pravatar.cc/150?img=43"},
+    {prenom:"Patrick",nom:"Renard",role:"Arbitre",ville:"Marseille",photo:""},
+    {prenom:"Aurélie",nom:"Marchand",role:"Médiateur",ville:"Nantes",photo:"https://i.pravatar.cc/150?img=41"},
+    {prenom:"Bruno",nom:"Morel",role:"Arbitre",ville:"Paris",photo:"https://i.pravatar.cc/150?img=13"},
+    {prenom:"Hélène",nom:"Fournier",role:"Médiateur",ville:"Toulouse",photo:""},
+    {prenom:"Olivier",nom:"Giraud",role:"Arbitre",ville:"Strasbourg",photo:"https://i.pravatar.cc/150?img=14"},
+    {prenom:"Laure",nom:"Caron",role:"Médiateur",ville:"Lille",photo:""},
+    {prenom:"Sébastien",nom:"Blanc",role:"Arbitre",ville:"Nice",photo:"https://i.pravatar.cc/150?img=10"},
+    {prenom:"Agnès",nom:"Perrin",role:"Médiateur",ville:"Rennes",photo:""},
+    {prenom:"Nicolas",nom:"Faure",role:"Arbitre",ville:"Grenoble",photo:"https://i.pravatar.cc/150?img=16"},
+  ];
+
+  let data = [...SAMPLE];
+  let filter = 'tous';
+
+  function initials(p) {
+    return ((p.prenom || '?')[0] + (p.nom || '?')[0]).toUpperCase();
+  }
+
+  function avatarHTML(p) {
+    const cls = p.role === 'Médiateur' ? 'med' : 'arb';
+    if (p.photo && p.photo.trim()) {
+      const safe = p.photo.trim().replace(/"/g, '&quot;');
+      const fb = initials(p).replace(/'/g, "\\'");
+      return `<div class="avatar ${cls}">
+        <img src="${safe}" alt="${p.prenom} ${p.nom}"
+          onerror="this.parentElement.innerHTML='${fb}'; this.parentElement.style.fontSize='22px';">
+      </div>`;
+    }
+    return `<div class="avatar ${cls}">${initials(p)}</div>`;
+  }
+
+  function setFilter(f, e) {
+    filter = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    render();
+  }
+
+  function render() {
+    const q = document.getElementById('search').value.toLowerCase();
+    const filtered = data.filter(p => {
+      const matchRole = filter === 'tous' || p.role === filter;
+      const matchQ = !q || (p.prenom + ' ' + p.nom).toLowerCase().includes(q) || (p.ville || '').toLowerCase().includes(q);
+      return matchRole && matchQ;
+    });
+
+    const med = data.filter(p => p.role === 'Médiateur').length;
+    const arb = data.filter(p => p.role === 'Arbitre').length;
+
+    document.getElementById('header-subtitle').textContent =
+      med + ' médiateurs · ' + arb + ' arbitres';
+
+    document.getElementById('stats-bar').innerHTML =
+      `<span>${filtered.length} personne${filtered.length > 1 ? 's' : ''} affichée${filtered.length > 1 ? 's' : ''}</span>
+       <span class="stat-pill med">${med} médiateurs</span>
+       <span class="stat-pill arb">${arb} arbitres</span>`;
+
+    const grid = document.getElementById('grid');
+    if (!filtered.length) {
+      grid.innerHTML = `<div class="empty-state">
+        <i class="ti ti-search-off" aria-hidden="true"></i>
+        <p>Aucune personne ne correspond à cette recherche.</p>
+      </div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(p => {
+      const cls = p.role === 'Médiateur' ? 'med' : 'arb';
+      return `<div class="card" role="listitem">
+        ${avatarHTML(p)}
+        <div class="card-name">${p.prenom} ${p.nom}</div>
+        <span class="role-badge ${cls}">${p.role}</span>
+        ${p.ville ? `<div class="card-city"><i class="ti ti-map-pin" aria-hidden="true" style="font-size:12px;"></i>${p.ville}</div>` : ''}
+      </div>`;
+    }).join('');
+  }
+
+  function normalize(h) {
+    return h.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().replace(/^"|"$/g, '');
+  }
+
+  function findCol(headers, candidates) {
+    for (const c of candidates) {
+      const idx = headers.findIndex(h => normalize(h) === c);
+      if (idx !== -1) return idx;
+    }
+    return -1;
+  }
+
+  function loadCSV(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const raw = ev.target.result;
+      const sep = raw.indexOf(';') !== -1 && raw.indexOf(';') < (raw.indexOf(',') === -1 ? 9999 : raw.indexOf(',')) ? ';' : ',';
+      const lines = raw.trim().split(/\r?\n/);
+      if (lines.length < 2) return;
+
+      const headers = lines[0].split(sep);
+      const iPrenom = findCol(headers, ['prenom','prenom','firstname','first name','first_name','givenname']);
+      const iNom    = findCol(headers, ['nom','name','lastname','last name','last_name','familyname','surname']);
+      const iRole   = findCol(headers, ['role','rôle','type','fonction','categorie','categorie','profil']);
+      const iVille  = findCol(headers, ['ville','city','localite','localite','commune']);
+      const iPhoto  = findCol(headers, ['photo','image','photo_url','image_url','url_photo','avatar','picture']);
+
+      const parsed = [];
+      for (let i = 1; i < lines.length; i++) {
+        if (!lines[i].trim()) continue;
+        const vals = lines[i].split(sep).map(v => v.replace(/^"|"$/g, '').trim());
+        const p = {
+          prenom: iPrenom !== -1 ? vals[iPrenom] : '',
+          nom:    iNom    !== -1 ? vals[iNom]    : '',
+          role:   iRole   !== -1 ? vals[iRole]   : 'Médiateur',
+          ville:  iVille  !== -1 ? vals[iVille]  : '',
+          photo:  iPhoto  !== -1 ? vals[iPhoto]  : ''
+        };
+        if (p.nom || p.prenom) parsed.push(p);
+      }
+
+      if (parsed.length) {
+        data = parsed;
+        render();
+        showToast(parsed.length + ' personnes importées depuis ' + file.name);
+      } else {
+        showToast('Aucune donnée reconnue dans ce fichier.');
+      }
+      e.target.value = '';
+    };
+    reader.readAsText(file, 'UTF-8');
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  render();
+</script>
+</body>
+</html>
